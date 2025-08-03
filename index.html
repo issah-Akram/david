@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduPro Writers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const savedMessages = JSON.parse(localStorage.getItem('eduproMessages') || '[]');
+      savedMessages.push({ name, email, message, timestamp: new Date().toISOString() });
+      localStorage.setItem('eduproMessages', JSON.stringify(savedMessages));
+
+      alert('Thank you for contacting us! We will get back to you shortly.');
+      e.target.reset();
+    }
+
+    function showMessages() {
+      const messages = JSON.parse(localStorage.getItem('eduproMessages') || '[]');
+      if (messages.length === 0) {
+        alert('No messages yet.');
+        return;
+      }
+
+      let output = 'Messages Received:\n\n';
+      messages.forEach((msg, index) => {
+        output += `${index + 1}. ${msg.name} (${msg.email})\n${msg.message}\n---\n`;
+      });
+
+      alert(output);
+    }
+  </script>
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+  <!-- Hero Section with Background Logo -->
+  <section class="relative bg-blue-700 text-white py-20 text-center overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-cover bg-center" style="background-image: url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png');"></div>
+    <h1 class="text-4xl md:text-6xl font-bold mb-4 z-10 relative">Welcome to EduPro Writers</h1>
+    <p class="text-lg md:text-2xl z-10 relative">Academic & Professional Services for Every Step of Your Career</p>
+    <a href="#contact" class="mt-6 inline-block bg-white text-blue-700 font-semibold px-6 py-3 rounded-full hover:bg-gray-100 z-10 relative">Get in Touch</a>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-16 px-6 max-w-5xl mx-auto">
+    <h2 class="text-3xl font-bold mb-4">About Us</h2>
+    <p class="text-lg leading-relaxed">
+      EduPro Writers provides premium academic and career-focused writing services. Whether you're a student writing your thesis, a professional in need of a standout CV, or a startup looking for a clean website, we've got you covered. Our team delivers fast, accurate, and tailored support to help you succeed.
+    </p>
+  </section>
+
+  <!-- Services Section -->
+  <section class="bg-gray-100 py-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8">Our Services</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded shadow text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/2306/2306178.png" alt="Thesis Write-Up" class="w-16 h-16 mx-auto mb-4">
+          <h3 class="text-xl font-semibold mb-2">Thesis Write-Up</h3>
+          <p>Get professional support with thesis writing, structuring, and editing.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/2922/2922506.png" alt="CV Design" class="w-16 h-16 mx-auto mb-4">
+          <h3 class="text-xl font-semibold mb-2">CV Design</h3>
+          <p>Beautiful, modern CVs and resumes tailored to your career goals.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/3964/3964530.png" alt="Case Study" class="w-16 h-16 mx-auto mb-4">
+          <h3 class="text-xl font-semibold mb-2">Care Study Write-Up</h3>
+          <p>Expertly crafted case studies for academic or business purposes.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/4727/4727491.png" alt="Website Development" class="w-16 h-16 mx-auto mb-4">
+          <h3 class="text-xl font-semibold mb-2">Website Development</h3>
+          <p>Custom websites designed for personal brands, businesses, and portfolios.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow text-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828945.png" alt="More Services" class="w-16 h-16 mx-auto mb-4">
+          <h3 class="text-xl font-semibold mb-2">And Many More</h3>
+          <p>From editing to graphics and research, our list keeps growing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-blue-50 py-16 px-6">
+    <div class="max-w-xl mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-center">Contact Us</h2>
+      <form class="space-y-4" onsubmit="handleFormSubmit(event)">
+        <input id="name" type="text" placeholder="Your Name" class="w-full p-3 rounded border border-gray-300" required>
+        <input id="email" type="email" placeholder="Your Email" class="w-full p-3 rounded border border-gray-300" required>
+        <textarea id="message" placeholder="Your Message" class="w-full p-3 rounded border border-gray-300 h-32" required></textarea>
+        <button type="submit" class="bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800">Send Message</button>
+      </form>
+      <div class="text-center mt-6 space-y-2">
+        <p class="text-lg font-medium">Phone: <a href="tel:0556011741" class="text-blue-700 hover:underline">0556011741</a></p>
+        <p class="text-lg font-medium">WhatsApp: <a href="https://wa.me/233507831469" class="text-blue-700 hover:underline">0507831469</a></p>
+        <button onclick="showMessages()" class="text-blue-700 underline">View Submitted Messages</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-700 text-white py-6 text-center">
+    <p>&copy; 2025 EduPro Writers. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>
